@@ -1,19 +1,14 @@
-using UnityEngine;
-using Weapons;
-
-namespace Archero.EnemyModel
+namespace Project.Scripts.Enemy
 {
-    public class Enemy : MonoBehaviour
+    public class Enemy
     {
-        public int MaxHealh { get; private set; }
-        public int CurrentHealth { get; private set; }
+        private Weapon.Weapon CurrentWeapon { get; set; }
+        public EnemyHealth EnemyHealth { get;  set; }
 
-        public Weapon CurrentWeapon { get; private set; }
-
-        public Enemy(int maxHealth, Weapon currentWeapon)
+        public Enemy(EnemyConfig config)
         {
-            MaxHealh = maxHealth;
-            CurrentWeapon = currentWeapon;
+            EnemyHealth = config.EnemyHealth;
+            CurrentWeapon = config.StartingWeapon;
         }
 
         public void Attack()
@@ -21,9 +16,29 @@ namespace Archero.EnemyModel
             CurrentWeapon.StartAttacking();
         }
 
-        public void SetEnemyWeapon(Weapon weapon)
+        public void SetEnemyWeapon(Weapon.Weapon weapon)
         {
             CurrentWeapon = weapon;
+        }
+        
+        public void SetEnemyHealth(EnemyHealth health)
+        {
+            EnemyHealth = health;
+        }
+
+        public EnemyHealth GetHealth()
+        {
+            return EnemyHealth;
+        }
+
+        public void Move()
+        {
+            // Move
+        }
+
+        public void Die()
+        {
+           // Die
         }
     }
 }

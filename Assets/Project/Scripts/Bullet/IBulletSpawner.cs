@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public interface IBulletSpawner
+namespace Project.Scripts.Bullet
 {
-    GameObject SpawnBullet(GameObject bulletPrefab, Vector3 position, Quaternion rotation);
-    void SetupBullet(GameObject bullet, Vector3 direction, float speed);
+    public interface IBulletSpawner
+    {
+        Bullet SpawnBullet(Bullet bulletPrefab, Vector3 position, Quaternion rotation);
+        void ShootProjectile(Bullet bullet, Vector3 direction, float speed);
+    }
 }

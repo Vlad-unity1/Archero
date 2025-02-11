@@ -1,12 +1,11 @@
 using Archer.Weapons;
 using UnityEngine;
 
-namespace Archero.BowConfiig
+namespace Project.Scripts.Weapon
 {
-    [CreateAssetMenu(fileName = "New BowConfiig", menuName = "Weapon/BowConfiig", order = 52)]
+    [CreateAssetMenu(fileName = "New BowConfig", menuName = "Weapon/BowConfig", order = 52)]
     public class BowConfig : WeaponConfig
     {
-        public GameObject BulletPrefab;
-        public Transform BulletSpawnPosition;
+        // что то креативное для оружия "Лук"
     }
 }

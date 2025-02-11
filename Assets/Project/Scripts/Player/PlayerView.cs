@@ -1,9 +1,7 @@
-﻿using Archer.PlayerStats;
-using Arhcero.PlayerMovement;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
-namespace Archero.PlayerView
+namespace Project.Scripts.Player
 {
     public class PlayerView : MonoBehaviour
     {
@@ -17,18 +15,23 @@ namespace Archero.PlayerView
         {
             _player = player;
             _playerMovement.OnPlayerMove += HandlePlayerMove;
+            _playerMovement.OnPlayerStop += HandlePlayerStop;
         }
 
-        private void HandlePlayerMove(bool isMoving)
+        public void OnDestroy()
         {
-            if (isMoving)
-            {
-                StopAttacking();
-            }
-            else
-            {
-                StartAttacking();
-            }
+            _playerMovement.OnPlayerMove -= HandlePlayerMove;
+            _playerMovement.OnPlayerStop -= HandlePlayerStop;
+        }
+
+        private void HandlePlayerMove()
+        {
+            StopAttacking();
+        }
+
+        private void HandlePlayerStop()
+        {
+            StartAttacking();
         }
 
         private void StartAttacking()

@@ -1,17 +1,17 @@
+﻿using Project.Scripts.Bullet;
 using Stone.Cannon.Config;
 using UnityEngine;
-using Weapons;
 
-namespace Stone.Cannon
+namespace Project.Scripts.Weapon
 {
     public class StoneCannon : Weapon
     {
-        public GameObject _bulletPrefab;
+        private readonly Bullet.Bullet _bulletPrefab;
         private readonly Transform[] _bulletPosition;
         private readonly IBulletSpawner _bulletSpawner;
 
-        public StoneCannon(string name, StoneCannonConfig config, GameObject bulletPrefab, Transform[] bulletPosition, IBulletSpawner bulletSpawner, float attackSpeed)
-           : base(name, config, attackSpeed)
+        public StoneCannon(StoneCannonConfig config, Bullet.Bullet bulletPrefab, Transform[] bulletPosition, IBulletSpawner bulletSpawner)
+           : base(config)
         {
             _bulletPrefab = bulletPrefab;
             _bulletPosition = bulletPosition;
@@ -22,11 +22,13 @@ namespace Stone.Cannon
         {
             foreach (var bulletPosition in _bulletPosition)
             {
-                GameObject bullet = _bulletSpawner.SpawnBullet(_bulletPrefab, bulletPosition.position, Quaternion.identity);
-                Vector3 direction = bulletPosition.forward;
-                float speed = ((StoneCannonConfig)Config).AttackSpeed;
+                var stoneCannonConfig = (StoneCannonConfig)Config;
+                
+                var bullet = _bulletSpawner.SpawnBullet(_bulletPrefab, bulletPosition.position, Quaternion.identity);
+                var direction = bulletPosition.forward;
+                var speed = stoneCannonConfig.BulletSpeed;
 
-                _bulletSpawner.SetupBullet(bullet, direction, speed);
+                _bulletSpawner.ShootProjectile(bullet, direction, speed);
             }
         }
     }

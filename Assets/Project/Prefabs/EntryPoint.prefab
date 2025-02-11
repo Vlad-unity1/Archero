@@ -51,7 +51,9 @@ MonoBehaviour:
   _bulletSpawn: {fileID: 4794759155271337870}
   _bullet: {fileID: -8179544989184948425, guid: abb3cd32156ae0b4ba1e6fdac6a0d2b8, type: 3}
   _playerView: {fileID: 0}
-  _earthenConfig: {fileID: 11400000, guid: 0f016fc619d0da54993f64ea8272912e, type: 2}
+  _enemyView: {fileID: 0}
+  _playerInputHandler: {fileID: 0}
+  _enemyFactory: {fileID: 0}
 --- !u!114 &8688702641389175808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,8 +68,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponMountPoint: {fileID: 0}
   _bowConfig: {fileID: 11400000, guid: c3c23055ea671bd49a63d09a4688a916, type: 2}
-  _bulletPrefab: {fileID: 8490156499139477240, guid: abb3cd32156ae0b4ba1e6fdac6a0d2b8, type: 3}
+  _bulletPrefab: {fileID: -8179544989184948425, guid: abb3cd32156ae0b4ba1e6fdac6a0d2b8, type: 3}
   _bulletSpawner: {fileID: 4794759155271337870}
+  _bulletEnemyPrefab: {fileID: 0}
+  _stoneCannonConfig: {fileID: 0}
+  _enemyView: {fileID: 0}
+  _bulletSpawnerEnemy: {fileID: 0}
 --- !u!114 &4794759155271337870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,5 +86,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3147ae3b6b01117408af66c1664e4ea7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 8490156499139477240, guid: abb3cd32156ae0b4ba1e6fdac6a0d2b8, type: 3}
+  _bulletPrefab: {fileID: -8179544989184948425, guid: abb3cd32156ae0b4ba1e6fdac6a0d2b8, type: 3}
   _initialPoolSize: 5

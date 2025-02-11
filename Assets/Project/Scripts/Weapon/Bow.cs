@@ -1,17 +1,16 @@
-using Archero.BowConfiig;
+using Project.Scripts.Bullet;
 using UnityEngine;
-using Weapons;
 
-namespace Archero.BowInstance
+namespace Project.Scripts.Weapon
 {
     public class Bow : Weapon
     {
-        public GameObject _bulletPrefab;
+        private readonly Bullet.Bullet _bulletPrefab;
         private readonly Transform _bulletPosition;
         private readonly IBulletSpawner _bulletSpawner;
 
-        public Bow(string name, BowConfig config, GameObject bulletPrefab, Transform bulletPosition, IBulletSpawner bulletSpawner, float attackSpeed)
-           : base(name, config, attackSpeed)
+        public Bow(BowConfig config, Bullet.Bullet bulletPrefab, Transform bulletPosition, IBulletSpawner bulletSpawner)
+           : base(config)
         {
             _bulletPrefab = bulletPrefab;
             _bulletPosition = bulletPosition;
@@ -20,11 +19,14 @@ namespace Archero.BowInstance
 
         public override void StartAttacking()
         {
-            GameObject bullet = _bulletSpawner.SpawnBullet(_bulletPrefab, _bulletPosition.position, Quaternion.identity);
-            Vector3 direction = _bulletPosition.forward;
-            float speed = ((BowConfig)Config).AttackSpeed;
+            var bowConfig = (BowConfig)Config;
+            
+            var bullet = _bulletSpawner.SpawnBullet(_bulletPrefab, _bulletPosition.position, Quaternion.identity);
+            bullet.SetDamage(bowConfig.Damage);
+            var direction = _bulletPosition.forward;
+            float speed = bowConfig.BulletSpeed;
 
-            _bulletSpawner.SetupBullet(bullet, direction, speed);
+            _bulletSpawner.ShootProjectile(bullet, direction, speed);
         }
     }
 }

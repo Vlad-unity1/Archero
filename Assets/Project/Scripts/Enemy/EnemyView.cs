@@ -1,45 +1,26 @@
-﻿using System.Collections;
-using UnityEngine;
-using Archero.EnemyModel;
+﻿using UnityEngine;
 
-namespace Archero.EnemyView
+namespace Project.Scripts.Enemy
 {
     public class EnemyView : MonoBehaviour
     {
-        private const float ATTACK_DELAY = 3f;
-        private const float ROTATION_SPEED = 45f;
+        private Enemy[] _enemies;
+        public EnemyHealth[] EnemyHealths { get; private set; }
 
-        [SerializeField] private GameObject _enemyPrefab;
-        private Enemy _enemy;
-        private Coroutine _autoAttackCoroutine;
-
-        public void Initialize(Enemy enemy)
+        public void Initialize(Enemy[] enemies, EnemyHealth[] enemyHealths)
         {
-            _enemy = enemy;
-            StartAttacking();
+            _enemies = enemies;
+            EnemyHealths = enemyHealths;
         }
 
-        private void StartAttacking()
+        private void StartEnemyAttack(int index)
         {
-            _autoAttackCoroutine ??= StartCoroutine(AutoAttack());
+            _enemies[index].Attack();
         }
 
-        private IEnumerator AutoAttack()
+        private void OnDeath(int index)
         {
-            while (true)
-            {
-                _enemy.Attack();
-
-                float elapsedTime = 0f;
-
-                while (elapsedTime < ATTACK_DELAY)
-                {
-                    float rotationStep = ROTATION_SPEED * Time.deltaTime;
-                    _enemyPrefab.transform.Rotate(0, rotationStep, 0);
-                    elapsedTime += Time.deltaTime;
-                    yield return null;
-                }
-            }
+            _enemies[index].Die();
         }
     }
 }

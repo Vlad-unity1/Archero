@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ab7203e452f20a4eabf06063a686f58, type: 3}
-  m_Name: Bow
+  m_Script: {fileID: 11500000, guid: cc9d3612ba2e301438ad187ee00e2d3d, type: 3}
+  m_Name: StoneEnemy 1
   m_EditorClassIdentifier: 
-  BulletSpeed: 2
-  Damage: 30
+  PrefabEnemy: {fileID: 7556685134374700243, guid: 15f3e151a9a85aa47958945cb2991f47, type: 3}
+  Health: 50

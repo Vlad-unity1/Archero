@@ -1,52 +1,53 @@
-﻿using Archer.PlayerStats;
-using Archero.Bullets;
-using Archero.BulletSpawner;
-using Archero.EnemyModel;
-using Archero.EnemyView;
-using Archero.PlayerView;
-using Archero.WeaponFactory;
-using Arhcero.PlayerMovement;
+﻿using Project.Scripts.Bullet;
+using Project.Scripts.Enemy;
+using Project.Scripts.Player;
+using Project.Scripts.Weapon;
 using UnityEngine;
-using Weapons;
 
-namespace Archer.EntryPoint
+namespace Project.Scripts
 {
     public class EntryPoint : MonoBehaviour
     {
-        public Player Player { get; private set; }
-        public Enemy Enemy { get; private set; }
-        public Weapon CurrentWeapon { get; private set; }
-        public Weapon CurrentWeaponEnemy { get; private set; }
         [SerializeField] private PlayerMovement _playerMovement;
         [SerializeField] private WeaponFactory _weaponFactory;
-        [SerializeField] private BulletSpawn _bulletSpawn;
-        [SerializeField] private Bullet _bullet;
+        [SerializeField] private BulletFactory _bulletSpawn;
+        [SerializeField] private Bullet.Bullet _bullet;
         [SerializeField] private PlayerView _playerView;
         [SerializeField] private EnemyView _enemyView;
+        [SerializeField] private PlayerInputHandler _playerInputHandler;
+        [SerializeField] private EnemyFactory _enemyFactory;
 
-        private void Awake()
-        {
-            _bulletSpawn.Initialize();
-        }
+        private Player.Player _player;
+        private PlayerHealth _health;
+        private PlayerFactory _playerFactory;
+        private EnemyHealth[] _enemyHealths;
+        private Enemy.Enemy[] _enemies;
 
         private void Start()
         {
-            Player = new Player(100, 10, CurrentWeapon, _playerMovement);
-            _playerMovement.Intialize(Player);
-            CurrentWeapon = _weaponFactory.CreateWeapon();
-            Player.SetWeapon(CurrentWeapon);
-            _playerView.Initialize(Player);
-            _bullet.Initialize(_bulletSpawn);
+            _bulletSpawn.Initialize();
 
-            Enemy = new Enemy(100, CurrentWeaponEnemy);
-            CurrentWeaponEnemy = _weaponFactory.CreateEnemyWeapon();
-            Enemy.SetEnemyWeapon(CurrentWeaponEnemy);
-            _enemyView.Initialize(Enemy);
+            _playerFactory = new PlayerFactory(_weaponFactory, _playerMovement, _playerInputHandler);
+            _health = new PlayerHealth(100);
+            _player = _playerFactory.CreatePlayer(_health);
+            _playerView.Initialize(_player);
+
+            _bullet.Initialize(_bulletSpawn);
+            _enemies = _enemyFactory.CreateEnemies();
+
+            _enemyHealths = new EnemyHealth[_enemies.Length];
+            for (int i = 0; i < _enemies.Length; i++)
+            {
+                _enemyHealths[i] = _enemies[i].GetHealth();  
+            }
+
+            _enemyView.Initialize(_enemies, _enemyHealths);
+
         }
 
         private void FixedUpdate()
         {
-            Player.Move();
+            _player.Move();
         }
     }
 }

@@ -1,20 +1,35 @@
-using Archero.BulletSpawner;
+using Project.Scripts.Enemy;
 using UnityEngine;
 
-namespace Archero.Bullets
+namespace Project.Scripts.Bullet
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class Bullet : MonoBehaviour
     {
-        private BulletSpawn _bulletSpawn;
+        private BulletFactory _bulletFactory;
+        private int _damage;
 
-        public void Initialize(BulletSpawn bulletSpawn)
+        public void Initialize(BulletFactory bulletFactory)
         {
-            _bulletSpawn = bulletSpawn;
+            _bulletFactory = bulletFactory;
+        }
+        
+        public void SetDamage(int damage)
+        {
+            _damage = damage;
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnCollisionEnter(Collision collision)
         {
-            _bulletSpawn.ReturnToPool(gameObject, 0);
+            if (collision.gameObject.TryGetComponent(out EnemyView enemy))
+            {
+                if (enemy.EnemyHealths.Length > 0)
+                {
+                    enemy.EnemyHealths[0].TakeDamage(_damage);
+                }
+            }
+            
+            _bulletFactory.ReturnToPool(this, 0);
         }
     }
 }

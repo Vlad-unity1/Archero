@@ -1,21 +1,16 @@
-using Archer.IPlayerInterface;
-using Arhcero.PlayerMovement;
-using Weapons;
-
-namespace Archer.PlayerStats
+namespace Project.Scripts.Player
 {
-    public class Player : IAttackAndMove
+    public class Player
     {
-        public int MaxHealh { get; private set; }
-        public int CurrentHealth { get; private set; }
         public int Speed = 5; // test 
 
-        public Weapon CurrentWeapon { get; private set; }
+        public Weapon.Weapon CurrentWeapon { get; private set; }
+        public PlayerHealth CurrentHealth { get; private set; }
         private readonly PlayerMovement _playerMovement;
 
-        public Player(int maxHealth, int speed, Weapon currentWeapon, PlayerMovement playerMovement)
+        public Player(PlayerHealth playerHealth, int speed, Weapon.Weapon currentWeapon, PlayerMovement playerMovement)
         {
-            MaxHealh = maxHealth;
+            CurrentHealth = playerHealth;
             Speed = speed;
             CurrentWeapon = currentWeapon;
             _playerMovement = playerMovement;
@@ -31,7 +26,7 @@ namespace Archer.PlayerStats
             _playerMovement.Move();
         }
 
-        public void SetWeapon(Weapon weapon)
+        public void SetWeapon(Weapon.Weapon weapon)
         {
             CurrentWeapon = weapon;
         }
