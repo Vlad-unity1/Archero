@@ -12,15 +12,5 @@ namespace Project.Scripts.Enemy
             _enemies = enemies;
             EnemyHealths = enemyHealths;
         }
-
-        private void StartEnemyAttack(int index)
-        {
-            _enemies[index].Attack();
-        }
-
-        private void OnDeath(int index)
-        {
-            _enemies[index].Die();
-        }
     }
 }
