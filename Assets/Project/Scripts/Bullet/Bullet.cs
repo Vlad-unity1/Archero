@@ -16,9 +16,10 @@ namespace Project.Scripts.Bullet
             _onReturnToPool = onReturnToPool;
         }
         
-        public void SetDamage(int damage)
+        public int SetDamage(int damage)
         {
             _damage = damage;
+            return _damage;
         }
 
         private void OnCollisionEnter(Collision collision)

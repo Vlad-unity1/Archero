@@ -6,7 +6,7 @@ namespace Project.Scripts.Weapons
     public class Bow : Weapon
     {
         private readonly BowConfig _bowConfig;
-        private readonly Bullet.Bullet _bulletPrefab; // она не используется, но без неё не работает, почему?
+        private readonly Bullet.Bullet _bulletPrefab;
         private readonly Transform _bulletPosition;
         private readonly BulletSpawner _bulletSpawner;
 
@@ -23,8 +23,9 @@ namespace Project.Scripts.Weapons
         {
             var direction = _bulletPosition.forward;
             float speed = _bowConfig.BulletSpeed; 
+            var damage = _bulletPrefab.SetDamage(_bowConfig.Damage);
 
-            _bulletSpawner.SpawnAndShoot(_bulletPosition.position, Quaternion.identity, direction, speed);
+            _bulletSpawner.SpawnAndShoot(_bulletPosition.position, Quaternion.identity, direction, speed, damage);
         }
     }
 }

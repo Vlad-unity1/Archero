@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: StoneCannon
   m_EditorClassIdentifier: 
   BulletSpeed: 5
-  Damage: 0
+  FireRate: 3

@@ -7,5 +7,6 @@ namespace Project.Scripts.Weapons
     {
         public float BulletSpeed;
         public float FireRate;
+        public int Damage;
     }
 }

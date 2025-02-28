@@ -35,7 +35,6 @@ namespace Project.Scripts.Enemies
             while (true)
             {
                 Attack();
-
                 yield return new WaitForSeconds(CurrentWeapon.Config.FireRate);
             }
         }

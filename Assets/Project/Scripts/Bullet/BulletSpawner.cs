@@ -15,7 +15,7 @@ namespace Project.Scripts.Bullet
             _bulletPool = new BulletPool(_bulletPrefab, _initialPoolSize);
         }
 
-        public void SpawnAndShoot(Vector3 position, Quaternion rotation, Vector3 direction, float speed)
+        public void SpawnAndShoot(Vector3 position, Quaternion rotation, Vector3 direction, float speed, int damage)
         {
             Bullet bullet = _bulletPool.GetBullet();
             bullet.transform.SetPositionAndRotation(position, rotation);

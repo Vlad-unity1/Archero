@@ -1,3 +1,4 @@
+using System.Linq;
 using Project.Scripts.Enemy;
 using Project.Scripts.Weapons;
 using UnityEngine;
@@ -19,7 +20,7 @@ namespace Project.Scripts.Enemies
                 
                 GameObject enemyObject = Instantiate(data.Config.PrefabEnemy, data.SpawnPoint.position, Quaternion.identity);
                 enemyObject.transform.position = data.SpawnPoint.position;
-                Transform[] stoneCannonSpawnPoints = enemyObject.GetComponentsInChildren<Transform>();
+                Transform[] stoneCannonSpawnPoints = enemyObject.GetComponentsInChildren<Transform>().Where(t => t != enemyObject.transform).ToArray();
                 Weapon enemyWeapon = _weaponFactory.CreateEnemyWeapon(stoneCannonSpawnPoints);
                 data.Config.StartingWeapon = enemyWeapon;
                 EnemyHealth enemyHealth = new(data.Config.EnemyHealth.MaxHealth);

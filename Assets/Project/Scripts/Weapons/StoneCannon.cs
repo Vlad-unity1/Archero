@@ -5,7 +5,7 @@ namespace Project.Scripts.Weapons
 {
     public class StoneCannon : Weapon
     {
-        private readonly Bullet.Bullet _bulletPrefab; // такой же вопрос как с луком
+        private readonly Bullet.Bullet _bulletPrefab;
         private readonly Transform[] _bulletPosition;
         private readonly BulletSpawner _bulletSpawner;
 
@@ -25,8 +25,9 @@ namespace Project.Scripts.Weapons
                 var position = bulletPosition.position;
                 var direction = bulletPosition.forward;
                 var speed = stoneCannonConfig.BulletSpeed;
+                var damage = _bulletPrefab.SetDamage(stoneCannonConfig.Damage);
 
-                _bulletSpawner.SpawnAndShoot(position, Quaternion.identity, direction, speed );
+                _bulletSpawner.SpawnAndShoot(position, Quaternion.identity, direction, speed, damage);
             }
         }
     }
