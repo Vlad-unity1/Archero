@@ -1,6 +1,4 @@
-using Archer.Weapons;
-
-namespace Project.Scripts.Weapon
+namespace Project.Scripts.Weapons
 {
     public abstract class Weapon
     {

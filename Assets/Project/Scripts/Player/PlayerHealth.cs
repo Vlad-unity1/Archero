@@ -12,9 +12,8 @@ namespace Project.Scripts.Player
             MaxHealth = maxHealth;
             CurrentHealth = maxHealth;
         }
-
-
-        public void TakeDamage(float damage)
+        
+        public void TakeDamage(float damage) // пока что не придумал как реализовать атаку по герою, нужно больше врагов для этого
         {
             CurrentHealth -= damage;
             CurrentHealth = Mathf.Max(CurrentHealth, 0);

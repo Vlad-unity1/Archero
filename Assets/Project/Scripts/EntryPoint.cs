@@ -1,48 +1,47 @@
 ﻿using Project.Scripts.Bullet;
+using Project.Scripts.Enemies;
 using Project.Scripts.Enemy;
 using Project.Scripts.Player;
-using Project.Scripts.Weapon;
+using Project.Scripts.Weapons;
 using UnityEngine;
 
 namespace Project.Scripts
 {
     public class EntryPoint : MonoBehaviour
     {
-        [SerializeField] private PlayerMovement _playerMovement;
         [SerializeField] private WeaponFactory _weaponFactory;
-        [SerializeField] private BulletFactory _bulletSpawn;
+        [SerializeField] private BulletSpawner _bulletSpawn;
         [SerializeField] private Bullet.Bullet _bullet;
-        [SerializeField] private PlayerView _playerView;
         [SerializeField] private EnemyView _enemyView;
-        [SerializeField] private PlayerInputHandler _playerInputHandler;
         [SerializeField] private EnemyFactory _enemyFactory;
+        [SerializeField] private GameObject _playerPrefab;
+        [SerializeField] private Vector3 _spawnPoint;
+        [SerializeField] private Joystick _joystick;
 
         private Player.Player _player;
         private PlayerHealth _health;
         private PlayerFactory _playerFactory;
         private EnemyHealth[] _enemyHealths;
-        private Enemy.Enemy[] _enemies;
+        private Enemies.Enemy[] _enemies;
+
+        private void Awake()
+        {
+            _bullet.Initialize(b => _bulletSpawn.ReturnToPool(b));
+        }
 
         private void Start()
         {
-            _bulletSpawn.Initialize();
-
-            _playerFactory = new PlayerFactory(_weaponFactory, _playerMovement, _playerInputHandler);
+            _playerFactory = new PlayerFactory(_weaponFactory, _playerPrefab);
             _health = new PlayerHealth(100);
-            _player = _playerFactory.CreatePlayer(_health);
-            _playerView.Initialize(_player);
-
-            _bullet.Initialize(_bulletSpawn);
+            _player = _playerFactory.CreatePlayer(_spawnPoint, _health, _joystick);
             _enemies = _enemyFactory.CreateEnemies();
-
             _enemyHealths = new EnemyHealth[_enemies.Length];
             for (int i = 0; i < _enemies.Length; i++)
             {
-                _enemyHealths[i] = _enemies[i].GetHealth();  
-            }
+                _enemyHealths[i] = _enemies[i].EnemyHealth;  
+            } 
 
             _enemyView.Initialize(_enemies, _enemyHealths);
-
         }
 
         private void FixedUpdate()

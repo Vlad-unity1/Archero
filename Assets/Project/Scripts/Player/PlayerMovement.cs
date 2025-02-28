@@ -16,6 +16,7 @@ namespace Project.Scripts.Player
         private PlayerInputHandler _inputHandler;
         private Player _player;
         private Transform _nearestEnemy;
+        private bool _isMoving = false;
 
         public void Initialize(Player player, PlayerInputHandler inputHandler)
         {
@@ -27,16 +28,23 @@ namespace Project.Scripts.Player
         {
             Vector3 moveDirection = _inputHandler.GetInputDirection();
             _characterController.Move(moveDirection * (_player.Speed * Time.deltaTime));
+            bool isCurrentlyMoving = moveDirection != Vector3.zero;
 
-            if (moveDirection != Vector3.zero)
+            if (isCurrentlyMoving && !_isMoving)
             {
-                transform.forward = moveDirection;
                 OnPlayerMove?.Invoke();
             }
-            else
+            else if (!isCurrentlyMoving && _isMoving)
             {
                 OnPlayerStop?.Invoke();
                 RotateToEnemy();
+            }
+
+            _isMoving = isCurrentlyMoving;
+
+            if (isCurrentlyMoving)
+            {
+                transform.forward = moveDirection;
             }
         }
 
@@ -44,7 +52,6 @@ namespace Project.Scripts.Player
         {
             _nearestEnemy = FindNearestEnemy();
             if (_nearestEnemy == null) return;
-
             Vector3 directionToEnemy = (_nearestEnemy.position - transform.position).normalized;
             directionToEnemy.y = 0;
 
@@ -67,6 +74,7 @@ namespace Project.Scripts.Player
                     closestEnemy = enemy.transform;
                 }
             }
+            
             return closestEnemy;
         }
     }

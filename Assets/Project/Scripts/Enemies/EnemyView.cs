@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Project.Scripts.Enemy;
+using UnityEngine;
 
-namespace Project.Scripts.Enemy
+namespace Project.Scripts.Enemies
 {
-    public class EnemyView : MonoBehaviour
+    public class EnemyView : MonoBehaviour // возможно пока что удалить класс надо 
     {
         private Enemy[] _enemies;
         public EnemyHealth[] EnemyHealths { get; private set; }

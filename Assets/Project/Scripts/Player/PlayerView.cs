@@ -5,15 +5,15 @@ namespace Project.Scripts.Player
 {
     public class PlayerView : MonoBehaviour
     {
-        private const float ATTACK_DELAY = 0.25f;
-        [SerializeField] private PlayerMovement _playerMovement;
-
+        private const float ATTACK_DELAY = 0.25f; 
+        private PlayerMovement _playerMovement;
         private Player _player;
         private Coroutine _autoAttackCoroutine;
 
         public void Initialize(Player player)
         {
             _player = player;
+            _playerMovement = GetComponent<PlayerMovement>();
             _playerMovement.OnPlayerMove += HandlePlayerMove;
             _playerMovement.OnPlayerStop += HandlePlayerStop;
         }

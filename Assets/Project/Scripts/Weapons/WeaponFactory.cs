@@ -1,27 +1,24 @@
 ﻿using Project.Scripts.Bullet;
-using Project.Scripts.Enemy;
-using Stone.Cannon;
-using Stone.Cannon.Config;
 using UnityEngine;
 
-namespace Project.Scripts.Weapon
+namespace Project.Scripts.Weapons
 {
     public class WeaponFactory : MonoBehaviour
     {
         [Header("Player")]
-        [SerializeField] private Transform _weaponMountPoint;
         [SerializeField] private BowConfig _bowConfig;
         [SerializeField] private Bullet.Bullet _bulletPrefab;
-        [SerializeField] private BulletFactory _bulletSpawner;
+        [SerializeField] private BulletSpawner _bulletSpawner;
 
         [Header("EnemyModel")]
         [SerializeField] private Bullet.Bullet _bulletEnemyPrefab;
         [SerializeField] private StoneCannonConfig _stoneCannonConfig;
-        [SerializeField] private BulletFactory _bulletSpawnerEnemy;
+        [SerializeField] private BulletSpawner _bulletSpawnerEnemy;
 
-        public Weapon CreateWeapon()
+        public Weapon CreateWeapon(GameObject playerObject)
         {
-            Bow bow = new(_bowConfig, _bulletPrefab, _weaponMountPoint, _bulletSpawner);
+            Transform weaponMountPoint = playerObject.transform.Find("Weapon"); // ужас, я знаю, но нашел только такое решение проблемы, подскажи как тут лучше сделать
+            Bow bow = new(_bowConfig, _bulletPrefab, weaponMountPoint, _bulletSpawner);
             return bow;
         }
 

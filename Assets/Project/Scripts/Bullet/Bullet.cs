@@ -1,3 +1,5 @@
+using System;
+using Project.Scripts.Enemies;
 using Project.Scripts.Enemy;
 using UnityEngine;
 
@@ -6,12 +8,12 @@ namespace Project.Scripts.Bullet
     [RequireComponent(typeof(Rigidbody))]
     public class Bullet : MonoBehaviour
     {
-        private BulletFactory _bulletFactory;
+        private Action<Bullet> _onReturnToPool;
         private int _damage;
 
-        public void Initialize(BulletFactory bulletFactory)
+        public void Initialize(Action<Bullet> onReturnToPool)
         {
-            _bulletFactory = bulletFactory;
+            _onReturnToPool = onReturnToPool;
         }
         
         public void SetDamage(int damage)
@@ -29,7 +31,14 @@ namespace Project.Scripts.Bullet
                 }
             }
             
-            _bulletFactory.ReturnToPool(this, 0);
+            _onReturnToPool?.Invoke(this);
+        }
+
+        public void Shoot(Vector3 direction, float speed)
+        {
+            var rb = GetComponent<Rigidbody>();
+            rb.velocity = Vector3.zero;
+            rb.AddForce(direction.normalized * speed, ForceMode.Impulse);
         }
     }
 }
