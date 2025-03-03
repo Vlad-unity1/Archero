@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace Project.Scripts.Enemy
 {
-    public class EnemyHealth // скрипт не работает из за того, что пуля ВРАГА бьет по врагу если включить колайдер
+    public class Health // скрипт не работает из за того, что пуля ВРАГА бьет по врагу если включить колайдер
     {
         public event Action OnEnemyDeath;
         public float MaxHealth { get; private set; }
         private float CurrentHealth { get; set; }
 
-        public EnemyHealth(float maxHealth)
+        public Health(float maxHealth)
         {
             MaxHealth = maxHealth;
             CurrentHealth = maxHealth;

@@ -1,29 +1,28 @@
-using Project.Scripts.Bullet;
+using Project.Scripts.BulletModel;
+using Project.Scripts.WeaponModel;
 using UnityEngine;
 
 namespace Project.Scripts.Weapons
 {
-    public class Bow : Weapon
+    public class Bow : Weapon<BowConfig>
     {
-        private readonly BowConfig _bowConfig;
-        private readonly Bullet.Bullet _bulletPrefab;
+        private readonly Bullet _bulletPrefab;
         private readonly Transform _bulletPosition;
-        private readonly BulletSpawner _bulletSpawner;
+        private readonly BulletFactory _bulletSpawner;
 
-        public Bow(BowConfig bowConfig, Bullet.Bullet bulletPrefab, Transform bulletPosition, BulletSpawner bulletSpawner)
+        public Bow(BowConfig bowConfig, Bullet bulletPrefab, Transform bulletPosition, BulletFactory bulletSpawner)
             : base(bowConfig)
         {
-            _bowConfig = bowConfig; 
             _bulletPrefab = bulletPrefab;
             _bulletPosition = bulletPosition;
             _bulletSpawner = bulletSpawner;
         }
 
-        public override void StartAttacking()
+        public override void InstantAttack()
         {
             var direction = _bulletPosition.forward;
-            float speed = _bowConfig.BulletSpeed; 
-            var damage = _bulletPrefab.SetDamage(_bowConfig.Damage);
+            float speed = Config.BulletSpeed;
+            var damage = Config.Damage;
 
             _bulletSpawner.SpawnAndShoot(_bulletPosition.position, Quaternion.identity, direction, speed, damage);
         }

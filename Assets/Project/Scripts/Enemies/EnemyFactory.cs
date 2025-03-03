@@ -1,5 +1,5 @@
-using System.Linq;
 using Project.Scripts.Enemy;
+using Project.Scripts.WeaponModel;
 using Project.Scripts.Weapons;
 using UnityEngine;
 
@@ -9,32 +9,32 @@ namespace Project.Scripts.Enemies
     {
         [SerializeField] private WeaponFactory _weaponFactory;
         [SerializeField] private EnemySpawnData[] _enemySpawnData;
-        
-        public Enemy[] CreateEnemies()
+
+        public EnemyModel[] CreateEnemies()
         {
-            Enemy[] enemies = new Enemy[_enemySpawnData.Length];
+            EnemyModel[] enemies = new EnemyModel[_enemySpawnData.Length];
 
             for (int i = 0; i < _enemySpawnData.Length; i++)
             {
                 var data = _enemySpawnData[i];
-                
-                GameObject enemyObject = Instantiate(data.Config.PrefabEnemy, data.SpawnPoint.position, Quaternion.identity);
+
+                EnemyView enemyObject = Instantiate(data.Config.PrefabEnemy, data.SpawnPoint.position, Quaternion.identity);
                 enemyObject.transform.position = data.SpawnPoint.position;
-                Transform[] stoneCannonSpawnPoints = enemyObject.GetComponentsInChildren<Transform>().Where(t => t != enemyObject.transform).ToArray();
-                Weapon enemyWeapon = _weaponFactory.CreateEnemyWeapon(stoneCannonSpawnPoints);
-                data.Config.StartingWeapon = enemyWeapon;
-                EnemyHealth enemyHealth = new(data.Config.EnemyHealth.MaxHealth);
-                Enemy enemy;
-        
+                Transform[] stoneCannonSpawnPoints = enemyObject._weaponTransform;
+                Weapon<StoneCannonConfig> enemyWeapon = _weaponFactory.CreateEnemyWeapon(stoneCannonSpawnPoints);
+                data.Config.StartingWeaponConfig = enemyWeapon;
+                Health enemyHealth = new(data.Config.MaxHealth);
+                EnemyModel enemy;
+
                 if (data.Config is EnemyStoneConfig stoneConfig)
                 {
                     enemy = new StoneEnemy(stoneConfig, _weaponFactory);
                 }
                 else
                 {
-                    enemy = new Enemy(data.Config);
+                    enemy = new EnemyModel(data.Config);
                 }
-        
+
                 enemy.SetEnemyWeapon(enemyWeapon);
                 enemy.SetEnemyHealth(enemyHealth);
                 enemies[i] = enemy;

@@ -1,38 +1,36 @@
-using System;
 using Project.Scripts.Enemies;
-using Project.Scripts.Enemy;
+using System;
 using UnityEngine;
 
-namespace Project.Scripts.Bullet
+namespace Project.Scripts.BulletModel
 {
     [RequireComponent(typeof(Rigidbody))]
     public class Bullet : MonoBehaviour
     {
-        private Action<Bullet> _onReturnToPool;
+        public event Action<Bullet> OnBulletHit;
         private int _damage;
 
-        public void Initialize(Action<Bullet> onReturnToPool)
-        {
-            _onReturnToPool = onReturnToPool;
-        }
-        
-        public int SetDamage(int damage)
+        public void SetDamage(int damage)
         {
             _damage = damage;
-            return _damage;
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.TryGetComponent(out EnemyView enemy))
+            if (collision.gameObject.TryGetComponent(out EnemyView enemyView))
             {
-                if (enemy.EnemyHealths.Length > 0)
+                var enemyModels = enemyView.GetEnemyModel();
+
+                foreach (var enemyModel in enemyModels)
                 {
-                    enemy.EnemyHealths[0].TakeDamage(_damage);
+                    if (enemyModel != null)
+                    {
+                        enemyModel.EnemyHealth.TakeDamage(_damage);
+                    }
                 }
             }
-            
-            _onReturnToPool?.Invoke(this);
+
+            OnBulletHit?.Invoke(this);
         }
 
         public void Shoot(Vector3 direction, float speed)

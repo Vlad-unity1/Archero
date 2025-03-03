@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc9d3612ba2e301438ad187ee00e2d3d, type: 3}
-  m_Name: StoneEnemy 1
+  m_Name: StoneEnemyFirst
   m_EditorClassIdentifier: 
-  PrefabEnemy: {fileID: 7556685134374700243, guid: 15f3e151a9a85aa47958945cb2991f47, type: 3}
-  Health: 50
+  PrefabEnemy: {fileID: 8172716793528785296, guid: 15f3e151a9a85aa47958945cb2991f47, type: 3}
+  MaxHealth: 100

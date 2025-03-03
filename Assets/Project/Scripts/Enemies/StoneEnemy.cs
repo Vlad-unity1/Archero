@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Project.Scripts.Enemy
 {
-    public class StoneEnemy : Enemies.Enemy
+    public class StoneEnemy : EnemyModel
     {
         private readonly MonoBehaviour _coroutineRunner;
 

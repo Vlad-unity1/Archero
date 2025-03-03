@@ -1,18 +1,21 @@
-﻿using System.Collections;
-using Project.Scripts.Enemy;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Project.Scripts.Enemies
 {
-    public class EnemyView : MonoBehaviour // возможно пока что удалить класс надо 
+    public class EnemyView : MonoBehaviour
     {
-        private Enemy[] _enemies;
-        public EnemyHealth[] EnemyHealths { get; private set; }
+        public Transform[] _weaponTransform;
+        private EnemyModel[] _enemyModel;
 
-        public void Initialize(Enemy[] enemies, EnemyHealth[] enemyHealths)
+        public void Initialize(EnemyModel[] enemyModel, Transform[] transform)
         {
-            _enemies = enemies;
-            EnemyHealths = enemyHealths;
+            _enemyModel = enemyModel;
+            _weaponTransform = transform;
+        }
+
+        public EnemyModel[] GetEnemyModel()
+        {
+            return _enemyModel;
         }
     }
 }

@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c017a69649040643899ff8dec58b618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerMovement: {fileID: 1295248305276566563}
+  _weaponTransform: {fileID: 9103325920204692113}
 --- !u!136 &174151676326976716
 CapsuleCollider:
   m_ObjectHideFlags: 0

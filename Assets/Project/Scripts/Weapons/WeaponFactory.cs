@@ -1,4 +1,5 @@
-﻿using Project.Scripts.Bullet;
+﻿using Project.Scripts.BulletModel;
+using Project.Scripts.WeaponModel;
 using UnityEngine;
 
 namespace Project.Scripts.Weapons
@@ -7,25 +8,22 @@ namespace Project.Scripts.Weapons
     {
         [Header("Player")]
         [SerializeField] private BowConfig _bowConfig;
-        [SerializeField] private Bullet.Bullet _bulletPrefab;
-        [SerializeField] private BulletSpawner _bulletSpawner;
+        [SerializeField] private Bullet _bulletPrefab;
+        [SerializeField] private BulletFactory _bulletFactory;
 
         [Header("EnemyModel")]
-        [SerializeField] private Bullet.Bullet _bulletEnemyPrefab;
+        [SerializeField] private Bullet _bulletEnemyPrefab;
         [SerializeField] private StoneCannonConfig _stoneCannonConfig;
-        [SerializeField] private BulletSpawner _bulletSpawnerEnemy;
+        [SerializeField] private BulletFactory _bulletFactoryEnemy;
 
-        public Weapon CreateWeapon(GameObject playerObject)
+        public Weapon<BowConfig> CreateWeapon(Transform spawnPoint)
         {
-            Transform weaponMountPoint = playerObject.transform.Find("Weapon"); // ужас, я знаю, но нашел только такое решение проблемы, подскажи как тут лучше сделать
-            Bow bow = new(_bowConfig, _bulletPrefab, weaponMountPoint, _bulletSpawner);
-            return bow;
+            return new Bow(_bowConfig, _bulletPrefab, spawnPoint, _bulletFactory);
         }
 
-        public Weapon CreateEnemyWeapon(Transform[] spawnPoints)
+        public Weapon<StoneCannonConfig> CreateEnemyWeapon(Transform[] spawnPoints)
         {
-            StoneCannon stoneCannon = new(_stoneCannonConfig, _bulletEnemyPrefab, spawnPoints, _bulletSpawnerEnemy);
-            return stoneCannon;
+            return new StoneCannon(_stoneCannonConfig, _bulletEnemyPrefab, spawnPoints, _bulletFactoryEnemy);
         }
     }
 }

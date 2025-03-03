@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Project.Scripts.Bullet
+namespace Project.Scripts.BulletModel
 {
     public class BulletPool
     {
@@ -43,7 +43,7 @@ namespace Project.Scripts.Bullet
         {
             Bullet bullet = Object.Instantiate(_bulletPrefab);
             bullet.gameObject.SetActive(false);
-            bullet.Initialize(ReturnBullet);
+            bullet.OnBulletHit += ReturnBullet;
             return bullet;
         }
     }

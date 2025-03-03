@@ -1,14 +1,16 @@
-namespace Project.Scripts.Weapons
-{
-    public abstract class Weapon
-    {
-        public WeaponConfig Config { get; private set; }
+using Project.Scripts.Weapons;
 
-        public Weapon(WeaponConfig config)
+namespace Project.Scripts.WeaponModel
+{
+    public abstract class Weapon<T> where T : WeaponConfig
+    {
+        public T Config { get; }
+
+        protected Weapon(T config)
         {
             Config = config;
         }
 
-        public abstract void StartAttacking();
+        public abstract void InstantAttack();
     }
 }

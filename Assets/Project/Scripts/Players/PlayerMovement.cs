@@ -1,7 +1,9 @@
 ﻿using System;
+using Project.Scripts.Player;
+using Project.Scripts.PlayerModels;
 using UnityEngine;
 
-namespace Project.Scripts.Player
+namespace Project.Scripts.Players
 {
     public class PlayerMovement : MonoBehaviour
     {
@@ -11,14 +13,14 @@ namespace Project.Scripts.Player
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private float _rotationSpeed = 720f;
         [SerializeField] private LayerMask _enemyLayer;
-        [SerializeField] private float _enemyDetectionRadius = 15f;
-
-        private PlayerInputHandler _inputHandler;
-        private Player _player;
-        private Transform _nearestEnemy;
+        [SerializeField] private float _enemyDetectionRadius = 50f;
         private bool _isMoving = false;
 
-        public void Initialize(Player player, PlayerInputHandler inputHandler)
+        private PlayerInputHandler _inputHandler;
+        private PlayerModel _player;
+        private Transform _nearestEnemy;
+
+        public void Initialize(PlayerModel player, PlayerInputHandler inputHandler)
         {
             _player = player;
             _inputHandler = inputHandler;
@@ -51,7 +53,10 @@ namespace Project.Scripts.Player
         public void RotateToEnemy()
         {
             _nearestEnemy = FindNearestEnemy();
-            if (_nearestEnemy == null) return;
+
+            if (_nearestEnemy == null) 
+                return;
+
             Vector3 directionToEnemy = (_nearestEnemy.position - transform.position).normalized;
             directionToEnemy.y = 0;
 

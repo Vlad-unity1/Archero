@@ -1,31 +1,32 @@
 using System.Collections;
 using Project.Scripts.Enemy;
+using Project.Scripts.WeaponModel;
+using Project.Scripts.Weapons;
 using UnityEngine;
 
 namespace Project.Scripts.Enemies
 {
-    public class Enemy
+    public class EnemyModel
     {
-        private Weapons.Weapon CurrentWeapon { get; set; }
-        public EnemyHealth EnemyHealth { get; private set; }
+        private Weapon<StoneCannonConfig> CurrentWeapon { get; set; }
+        public Health EnemyHealth { get; private set; }
 
-        public Enemy(EnemyConfig config)
+        public EnemyModel(EnemyConfig config)
         {
-            EnemyHealth = config.EnemyHealth;
-            CurrentWeapon = config.StartingWeapon;
+            CurrentWeapon = config.StartingWeaponConfig;
         }
 
         private void Attack()
         {
-            CurrentWeapon.StartAttacking();
+            CurrentWeapon.InstantAttack();
         }
 
-        public void SetEnemyWeapon(Weapons.Weapon weapon)
+        public void SetEnemyWeapon(Weapon<StoneCannonConfig> weapon)
         {
             CurrentWeapon = weapon;
         }
-        
-        public void SetEnemyHealth(EnemyHealth health)
+
+        public void SetEnemyHealth(Health health)
         {
             EnemyHealth = health;
         }
