@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b09584093fe113044a5d844988e9f82e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponTransform:
+  WeaponTransform:
   - {fileID: 3895475077870998666}
   - {fileID: 4228048803649011292}
   - {fileID: 8642320208767358746}

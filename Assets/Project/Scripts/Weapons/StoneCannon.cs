@@ -6,16 +6,14 @@ namespace Project.Scripts.Weapons
 {
     public class StoneCannon : Weapon<StoneCannonConfig>
     {
-        private readonly Bullet _bulletPrefab;
         private readonly Transform[] _bulletPosition;
         private readonly BulletFactory _bulletSpawner;
 
-        public StoneCannon(StoneCannonConfig config, Bullet bulletPrefab, Transform[] bulletPosition, BulletFactory bulletSpawner)
+        public StoneCannon(StoneCannonConfig config, Transform[] bulletPosition, BulletFactory bulletFactory)
            : base(config)
         {
-            _bulletPrefab = bulletPrefab;
             _bulletPosition = bulletPosition;
-            _bulletSpawner = bulletSpawner;
+            _bulletSpawner = bulletFactory;
         }
 
         public override void InstantAttack()

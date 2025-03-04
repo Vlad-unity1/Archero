@@ -10,6 +10,7 @@ namespace Project.Scripts.Players
         public event Action OnPlayerMove;
         public event Action OnPlayerStop;
 
+        [SerializeField] public Transform weaponTransformPrefab;
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private float _rotationSpeed = 720f;
         [SerializeField] private LayerMask _enemyLayer;
@@ -34,11 +35,11 @@ namespace Project.Scripts.Players
 
             if (isCurrentlyMoving && !_isMoving)
             {
-                OnPlayerMove?.Invoke();
+                _player.StopAttacking();
             }
             else if (!isCurrentlyMoving && _isMoving)
             {
-                OnPlayerStop?.Invoke();
+                _player.StartAttack();
                 RotateToEnemy();
             }
 

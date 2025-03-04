@@ -4,16 +4,16 @@ namespace Project.Scripts.Enemies
 {
     public class EnemyView : MonoBehaviour
     {
-        public Transform[] _weaponTransform;
-        private EnemyModel[] _enemyModel;
+        public Transform[] WeaponTransform;
+        private EnemyModel _enemyModel;
 
-        public void Initialize(EnemyModel[] enemyModel, Transform[] transform)
+        public void Initialize(EnemyModel enemyModel, Transform[] transform)
         {
             _enemyModel = enemyModel;
-            _weaponTransform = transform;
+            WeaponTransform = transform;
         }
 
-        public EnemyModel[] GetEnemyModel()
+        public EnemyModel GetEnemyModel()
         {
             return _enemyModel;
         }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Project.Scripts.Enemy
 {
-    public class Health // скрипт не работает из за того, что пуля ВРАГА бьет по врагу если включить колайдер
+    public class Health
     {
         public event Action OnEnemyDeath;
         public float MaxHealth { get; private set; }
@@ -17,6 +17,8 @@ namespace Project.Scripts.Enemy
 
         public void TakeDamage(float damage)
         {
+            Debug.Log($"Received {damage} damage. Current Health before: {CurrentHealth}");
+
             CurrentHealth -= damage;
             CurrentHealth = Mathf.Max(CurrentHealth, 0);
 

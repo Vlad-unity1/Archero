@@ -20,7 +20,7 @@ namespace Project.Scripts.Enemies
 
                 EnemyView enemyObject = Instantiate(data.Config.PrefabEnemy, data.SpawnPoint.position, Quaternion.identity);
                 enemyObject.transform.position = data.SpawnPoint.position;
-                Transform[] stoneCannonSpawnPoints = enemyObject._weaponTransform;
+                Transform[] stoneCannonSpawnPoints = enemyObject.WeaponTransform;
                 Weapon<StoneCannonConfig> enemyWeapon = _weaponFactory.CreateEnemyWeapon(stoneCannonSpawnPoints);
                 data.Config.StartingWeaponConfig = enemyWeapon;
                 Health enemyHealth = new(data.Config.MaxHealth);
@@ -38,6 +38,8 @@ namespace Project.Scripts.Enemies
                 enemy.SetEnemyWeapon(enemyWeapon);
                 enemy.SetEnemyHealth(enemyHealth);
                 enemies[i] = enemy;
+
+                enemyObject.Initialize(enemy, enemyObject.WeaponTransform);
             }
 
             return enemies;

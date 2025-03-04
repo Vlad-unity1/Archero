@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7fc730f951f1504dafc4875d4a586ee, type: 3}
   m_Name: StoneCannon
   m_EditorClassIdentifier: 
+  BulletPrefab: {fileID: -8179544989184948425, guid: b7dfce072ee4c8f4b8fd035db5dfefae, type: 3}
   BulletSpeed: 5
   FireRate: 3
+  Damage: 0

@@ -6,16 +6,14 @@ namespace Project.Scripts.Weapons
 {
     public class Bow : Weapon<BowConfig>
     {
-        private readonly Bullet _bulletPrefab;
         private readonly Transform _bulletPosition;
-        private readonly BulletFactory _bulletSpawner;
+        private readonly BulletFactory _bulletFactory;
 
-        public Bow(BowConfig bowConfig, Bullet bulletPrefab, Transform bulletPosition, BulletFactory bulletSpawner)
+        public Bow(BowConfig bowConfig, Transform bulletPosition, BulletFactory bulletFactory)
             : base(bowConfig)
         {
-            _bulletPrefab = bulletPrefab;
             _bulletPosition = bulletPosition;
-            _bulletSpawner = bulletSpawner;
+            _bulletFactory = bulletFactory;
         }
 
         public override void InstantAttack()
@@ -24,7 +22,7 @@ namespace Project.Scripts.Weapons
             float speed = Config.BulletSpeed;
             var damage = Config.Damage;
 
-            _bulletSpawner.SpawnAndShoot(_bulletPosition.position, Quaternion.identity, direction, speed, damage);
+            _bulletFactory.SpawnAndShoot(_bulletPosition.position, Quaternion.identity, direction, speed, damage);
         }
     }
 }

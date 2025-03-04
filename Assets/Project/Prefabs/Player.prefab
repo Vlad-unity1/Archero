@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 4186262015563767779}
   - component: {fileID: 8087406491627649020}
   - component: {fileID: 1295248305276566563}
-  - component: {fileID: 768027468646062807}
   - component: {fileID: 174151676326976716}
   - component: {fileID: 3081539019395290692}
   m_Layer: 10
@@ -132,25 +131,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18e0d8664d3d41d489b49dc07b18cdca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponTransformPrefab: {fileID: 9103325920204692113}
   _characterController: {fileID: 3081539019395290692}
   _rotationSpeed: 720
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 512
   _enemyDetectionRadius: 50
---- !u!114 &768027468646062807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4755734673363361895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c017a69649040643899ff8dec58b618, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _weaponTransform: {fileID: 9103325920204692113}
 --- !u!136 &174151676326976716
 CapsuleCollider:
   m_ObjectHideFlags: 0

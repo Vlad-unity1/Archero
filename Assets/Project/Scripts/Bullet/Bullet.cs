@@ -21,13 +21,7 @@ namespace Project.Scripts.BulletModel
             {
                 var enemyModels = enemyView.GetEnemyModel();
 
-                foreach (var enemyModel in enemyModels)
-                {
-                    if (enemyModel != null)
-                    {
-                        enemyModel.EnemyHealth.TakeDamage(_damage);
-                    }
-                }
+                enemyModels.EnemyHealth.TakeDamage(_damage);
             }
 
             OnBulletHit?.Invoke(this);

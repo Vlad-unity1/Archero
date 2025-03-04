@@ -1,3 +1,4 @@
+using Project.Scripts.Weapons;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,6 +38,7 @@ namespace Project.Scripts.BulletModel
         public void ReturnBullet(Bullet bullet)
         {
             bullet.gameObject.SetActive(false);
+            bullet.OnBulletHit -= ReturnBullet;
         }
 
         private Bullet CreateBullet()
