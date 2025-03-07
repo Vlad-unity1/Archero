@@ -7,9 +7,6 @@ namespace Project.Scripts.Players
 {
     public class PlayerMovement : MonoBehaviour
     {
-        public event Action OnPlayerMove;
-        public event Action OnPlayerStop;
-
         [SerializeField] public Transform weaponTransformPrefab;
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private float _rotationSpeed = 720f;
