@@ -61,7 +61,6 @@ namespace Project.Scripts.Players
             transform.rotation = targetRotation;
         }
 
-
         private Transform FindNearestEnemy()
         {
             Collider[] enemies = Physics.OverlapSphere(transform.position, _enemyDetectionRadius, _enemyLayer);
