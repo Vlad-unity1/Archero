@@ -48,7 +48,7 @@ namespace Project.Scripts.Players
             }
         }
 
-        public void RotateToEnemy()
+        private void RotateToEnemy()
         {
             _nearestEnemy = FindNearestEnemy();
             if (_nearestEnemy == null)
