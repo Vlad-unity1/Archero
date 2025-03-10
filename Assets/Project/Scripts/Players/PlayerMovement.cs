@@ -9,7 +9,7 @@ namespace Project.Scripts.Players
     {
         [SerializeField] public Transform weaponTransformPrefab;
         [SerializeField] private CharacterController _characterController;
-        [SerializeField] private float _rotationSpeed = 720f;
+        [SerializeField] private float _rotationSpeed;
         [SerializeField] private LayerMask _enemyLayer;
         [SerializeField] private float _enemyDetectionRadius = 50f;
         private bool _isMoving = false;
@@ -51,20 +51,22 @@ namespace Project.Scripts.Players
         public void RotateToEnemy()
         {
             _nearestEnemy = FindNearestEnemy();
-
-            if (_nearestEnemy == null) 
+            if (_nearestEnemy == null)
+            {
                 return;
+            }
 
             Vector3 directionToEnemy = (_nearestEnemy.position - transform.position).normalized;
-            directionToEnemy.y = 0;
-
             Quaternion targetRotation = Quaternion.LookRotation(directionToEnemy);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+            transform.rotation = targetRotation;
         }
+
+
 
         private Transform FindNearestEnemy()
         {
             Collider[] enemies = Physics.OverlapSphere(transform.position, _enemyDetectionRadius, _enemyLayer);
+            Debug.Log($"Найдено врагов: {enemies.Length}");
             Transform closestEnemy = null;
             float minDistance = Mathf.Infinity;
 
