@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Project.Scripts.Enemies;
+using Project.Scripts.Enemy;
 using Project.Scripts.Player;
 using Project.Scripts.PlayerModels;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Project.Scripts.Players
 {
@@ -12,20 +14,31 @@ namespace Project.Scripts.Players
         [SerializeField] private float _rotationSpeed;
         [SerializeField] private LayerMask _enemyLayer;
         [SerializeField] private float _enemyDetectionRadius = 50f;
+        [SerializeField] private Slider _healthBar;
         private bool _isMoving = false;
 
         private PlayerInputHandler _inputHandler;
         private PlayerModel _player;
         private Transform _nearestEnemy;
+        private Health _health;
 
-        public void Initialize(PlayerModel player, PlayerInputHandler inputHandler)
+        public void Initialize(PlayerModel player, PlayerInputHandler inputHandler, Health health)
         {
             _player = player;
             _inputHandler = inputHandler;
+            _health = health;
+            _health.OnHealthChanged += UpdateHealthBar;
+            _healthBar.maxValue = 1f;
+            _healthBar.value = _health.CurrentHealth / _health.MaxHealth;
         }
 
         public void Move()
         {
+            if (_characterController == null || _player == null)
+            {
+                return;
+            }
+
             Vector3 moveDirection = _inputHandler.GetInputDirection();
             _characterController.Move(moveDirection * (_player.Speed * Time.deltaTime));
             bool isCurrentlyMoving = moveDirection != Vector3.zero;
@@ -36,8 +49,12 @@ namespace Project.Scripts.Players
             }
             else if (!isCurrentlyMoving && _isMoving)
             {
-                _player.StartAttack();
-                RotateToEnemy();
+                _nearestEnemy = FindNearestEnemy();
+                if (_nearestEnemy != null)
+                {
+                    _player.StartAttack();
+                    RotateToEnemy();
+                }
             }
 
             _isMoving = isCurrentlyMoving;
@@ -53,6 +70,7 @@ namespace Project.Scripts.Players
             _nearestEnemy = FindNearestEnemy();
             if (_nearestEnemy == null)
             {
+                _player.StopAttacking();
                 return;
             }
 
@@ -64,7 +82,6 @@ namespace Project.Scripts.Players
         private Transform FindNearestEnemy()
         {
             Collider[] enemies = Physics.OverlapSphere(transform.position, _enemyDetectionRadius, _enemyLayer);
-            Debug.Log($"Найдено врагов: {enemies.Length}");
             Transform closestEnemy = null;
             float minDistance = Mathf.Infinity;
 
@@ -77,8 +94,23 @@ namespace Project.Scripts.Players
                     closestEnemy = enemy.transform;
                 }
             }
-            
+
             return closestEnemy;
+        }
+
+        public void TakeDamage(float damage)
+        {
+            _player?.PlayerHealth.TakeDamage(damage);
+        }
+
+        private void UpdateHealthBar(float currentHealthRatio)
+        {
+            _healthBar.value = currentHealthRatio;
+        }
+
+        private void OnDestroy()
+        {
+            _health.OnHealthChanged -= UpdateHealthBar;
         }
     }
 }

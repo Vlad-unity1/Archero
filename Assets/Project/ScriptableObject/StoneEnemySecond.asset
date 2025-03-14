@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc9d3612ba2e301438ad187ee00e2d3d, type: 3}
   m_Name: StoneEnemySecond
   m_EditorClassIdentifier: 
-  PrefabEnemy: {fileID: 8172716793528785296, guid: 15f3e151a9a85aa47958945cb2991f47, type: 3}
   MaxHealth: 55
+  PrefabEnemy: {fileID: 6383768375562488539, guid: 8990c1aa9bcefed418796f18c8d59c8e, type: 3}

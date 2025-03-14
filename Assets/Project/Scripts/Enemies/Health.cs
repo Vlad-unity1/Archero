@@ -5,20 +5,22 @@ namespace Project.Scripts.Enemy
 {
     public class Health
     {
-        public event Action OnEnemyDeath;
-        public float MaxHealth { get; private set; }
-        private float CurrentHealth { get; set; }
+        public event Action OnEntityDeath;
+        public event Action<float> OnHealthChanged;
 
-        public Health(float maxHealth)
+        public float MaxHealth { get; private set; }
+        public float CurrentHealth { get; private set; }
+        private readonly GameObject _entityObject;
+
+        public Health(float maxHealth, GameObject enemyObject)
         {
             MaxHealth = maxHealth;
             CurrentHealth = maxHealth;
+            _entityObject = enemyObject;
         }
 
         public void TakeDamage(float damage)
         {
-            Debug.Log($"Received {damage} damage. Current Health before: {CurrentHealth}");
-
             CurrentHealth -= damage;
             CurrentHealth = Mathf.Max(CurrentHealth, 0);
 
@@ -26,11 +28,17 @@ namespace Project.Scripts.Enemy
             {
                 Die();
             }
+            else
+            {
+                float _currentHealth = CurrentHealth / MaxHealth;
+                OnHealthChanged?.Invoke(_currentHealth);
+            }
         }
 
         private void Die()
         {
-            OnEnemyDeath?.Invoke();
+            UnityEngine.Object.Destroy(_entityObject);
+            OnEntityDeath?.Invoke();
         }
     }
 }

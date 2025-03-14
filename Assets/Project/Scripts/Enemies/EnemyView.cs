@@ -1,21 +1,39 @@
-﻿using UnityEngine;
+﻿using Project.Scripts.Enemy;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Project.Scripts.Enemies
 {
     public class EnemyView : MonoBehaviour
     {
         public Transform[] WeaponTransform;
+        [SerializeField] private Slider _healthBar;
         private EnemyModel _enemyModel;
+        private Health _health;
 
-        public void Initialize(EnemyModel enemyModel, Transform[] transform)
+        public void Initialize(EnemyModel enemyModel, Transform[] transform, Health health)
         {
             _enemyModel = enemyModel;
             WeaponTransform = transform;
+            _health = health;
+            _health.OnHealthChanged += UpdateHealthBar;
+            _healthBar.maxValue = 1f;
+            _healthBar.value = _health.CurrentHealth / _health.MaxHealth;
         }
 
-        public EnemyModel GetEnemyModel()
+        public void TakeDamage(float damage)
         {
-            return _enemyModel;
+            _enemyModel?.EnemyHealth.TakeDamage(damage);
+        }
+
+        private void UpdateHealthBar(float currentHealthRatio)
+        {
+            _healthBar.value = currentHealthRatio;
+        }
+
+        private void OnDestroy()
+        {
+            _health.OnHealthChanged -= UpdateHealthBar;
         }
     }
 }

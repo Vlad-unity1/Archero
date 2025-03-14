@@ -20,6 +20,9 @@ namespace Project.Scripts.Weapons
         {
             foreach (var bulletPosition in _bulletPosition)
             {
+                if (bulletPosition == null) 
+                    continue;
+
                 var position = bulletPosition.position;
                 var direction = bulletPosition.forward;
                 var speed = Config.BulletSpeed;

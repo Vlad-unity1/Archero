@@ -1,4 +1,5 @@
 using Project.Scripts.Enemies;
+using Project.Scripts.Players;
 using System;
 using UnityEngine;
 
@@ -19,9 +20,12 @@ namespace Project.Scripts.BulletModel
         {
             if (collision.gameObject.TryGetComponent(out EnemyView enemyView))
             {
-                var enemyModels = enemyView.GetEnemyModel();
+                enemyView.TakeDamage(_damage);
+            }
 
-                enemyModels.EnemyHealth.TakeDamage(_damage);
+            if (collision.gameObject.TryGetComponent(out PlayerMovement player))
+            {
+                player.TakeDamage(_damage);
             }
 
             OnBulletHit?.Invoke(this);

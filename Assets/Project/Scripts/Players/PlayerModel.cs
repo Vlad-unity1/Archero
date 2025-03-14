@@ -52,7 +52,6 @@ namespace Project.Scripts.PlayerModels
             while (isAttacking)
             {
                 CurrentWeapon.InstantAttack();
-                OnAttackStart?.Invoke();
                 
                 await Task.Delay(ATTACK_DELAY);
 

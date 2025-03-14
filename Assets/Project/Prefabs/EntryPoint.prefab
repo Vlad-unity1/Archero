@@ -9,9 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3938528958169175451}
-  - component: {fileID: 7689174925419011621}
   - component: {fileID: 8688702641389175808}
-  - component: {fileID: 4794759155271337870}
   m_Layer: 0
   m_Name: EntryPoint
   m_TagString: Untagged
@@ -34,26 +32,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7689174925419011621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3018629062094732838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8f0ba983ce6ce64db5b5c8b735738dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerMovement: {fileID: 0}
-  _weaponFactory: {fileID: 8688702641389175808}
-  _bulletSpawn: {fileID: 4794759155271337870}
-  _bullet: {fileID: -8179544989184948425, guid: abb3cd32156ae0b4ba1e6fdac6a0d2b8, type: 3}
-  _playerView: {fileID: 0}
-  _enemyView: {fileID: 0}
-  _playerInputHandler: {fileID: 0}
-  _enemyFactory: {fileID: 0}
 --- !u!114 &8688702641389175808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,25 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2f4b1161a3c954dbf55ca99a2b614e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponMountPoint: {fileID: 0}
   _bowConfig: {fileID: 11400000, guid: c3c23055ea671bd49a63d09a4688a916, type: 2}
-  _bulletPrefab: {fileID: -8179544989184948425, guid: abb3cd32156ae0b4ba1e6fdac6a0d2b8, type: 3}
-  _bulletSpawner: {fileID: 4794759155271337870}
-  _bulletEnemyPrefab: {fileID: 0}
+  _bulletFactory: {fileID: 0}
   _stoneCannonConfig: {fileID: 0}
-  _enemyView: {fileID: 0}
-  _bulletSpawnerEnemy: {fileID: 0}
---- !u!114 &4794759155271337870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3018629062094732838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3147ae3b6b01117408af66c1664e4ea7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: -8179544989184948425, guid: abb3cd32156ae0b4ba1e6fdac6a0d2b8, type: 3}
-  _initialPoolSize: 5
+  _bulletFactoryEnemy: {fileID: 0}

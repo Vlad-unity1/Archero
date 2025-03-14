@@ -11,17 +11,16 @@ namespace Project.Scripts.Players
         [SerializeField] private WeaponFactory _weaponFactory;
         [SerializeField] private PlayerMovement _playerPrefab;
 
-        public PlayerModel CreatePlayer(Transform spawnPosition, int initialHealth, Joystick joystick)
+        public PlayerModel CreatePlayer(SpawnPointPlayerScene spawnPosition, int initialHealth, Joystick joystick)
         {
-            var playerObject = Object.Instantiate(_playerPrefab, spawnPosition.position, Quaternion.identity);
-            var playerMovement = playerObject.GetComponent<PlayerMovement>();
+            PlayerMovement playerMovement = Object.Instantiate(_playerPrefab, spawnPosition.transform.position, Quaternion.identity);
             var playerInput = new PlayerInputHandler(joystick);
 
             var weapon = _weaponFactory.CreateWeapon(playerMovement.weaponTransformPrefab);
-            var health = new Health(initialHealth);
+            var health = new Health(initialHealth, playerMovement.gameObject);
             var player = new PlayerModel(health, 10, weapon, playerMovement, playerInput.Joystick);
 
-            playerMovement.Initialize(player, playerInput);
+            playerMovement.Initialize(player, playerInput, health);
             player.SetWeapon(weapon);
             
             return player;
