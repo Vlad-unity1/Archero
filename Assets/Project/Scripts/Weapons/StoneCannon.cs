@@ -7,13 +7,13 @@ namespace Project.Scripts.Weapons
     public class StoneCannon : Weapon<StoneCannonConfig>
     {
         private readonly Transform[] _bulletPosition;
-        private readonly BulletFactory _bulletSpawner;
+        private readonly BulletFactoryEnemies _bulletFactory;
 
-        public StoneCannon(StoneCannonConfig config, Transform[] bulletPosition, BulletFactory bulletFactory)
+        public StoneCannon(StoneCannonConfig config, Transform[] bulletPosition, BulletFactoryEnemies bulletFactory)
            : base(config)
         {
             _bulletPosition = bulletPosition;
-            _bulletSpawner = bulletFactory;
+            _bulletFactory = bulletFactory;
         }
 
         public override void InstantAttack()
@@ -23,12 +23,9 @@ namespace Project.Scripts.Weapons
                 if (bulletPosition == null) 
                     continue;
 
-                var position = bulletPosition.position;
-                var direction = bulletPosition.forward;
-                var speed = Config.BulletSpeed;
-                var damage = Config.Damage;
-
-                _bulletSpawner.SpawnAndShoot(position, Quaternion.identity, direction, speed, damage);
+                var bullet = _bulletFactory.GetBullet(bulletPosition.position, bulletPosition.rotation);
+                bullet.SetDamage(Config.Damage);
+                bullet.Shoot(bulletPosition.forward, Config.BulletSpeed);
             }
         }
     }

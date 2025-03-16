@@ -3,35 +3,28 @@ using UnityEngine;
 
 namespace Project.Scripts.BulletModel
 {
-    public class BulletFactory : MonoBehaviour
+    public class BulletFactoryPlayer
     {
-        [SerializeField] private int _initialPoolSize = 10;
-        [SerializeField] private WeaponConfig _weaponConfig;
+        private readonly BulletPool _bulletPool;
 
-        private BulletPool _bulletPool;
-
-        public void Awake()
+        public BulletFactoryPlayer(WeaponConfig weaponConfig, int initialPoolSize)
         {
-            _bulletPool = new BulletPool(_weaponConfig.BulletPrefab, _initialPoolSize);
+            _bulletPool = new BulletPool(weaponConfig.BulletPrefab, initialPoolSize);
         }
 
-        public void SpawnAndShoot(Vector3 position, Quaternion rotation, Vector3 direction, float speed, int damage)
+        public Bullet GetBullet(Vector3 position, Quaternion rotation)
         {
             Bullet bullet = _bulletPool.GetBullet();
             bullet.transform.SetPositionAndRotation(position, rotation);
             bullet.gameObject.SetActive(true);
-
-            bullet.SetDamage(damage);
-            bullet.Shoot(direction, speed);
-
             bullet.OnBulletHit += ReturnToPool;
+            return bullet;
         }
 
         private void ReturnToPool(Bullet bullet)
         {
             bullet.gameObject.SetActive(false);
             _bulletPool.ReturnBullet(bullet);
-
             bullet.OnBulletHit -= ReturnToPool;
         }
     }

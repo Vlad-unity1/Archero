@@ -1,27 +1,32 @@
 ﻿using Project.Scripts.BulletModel;
-using Project.Scripts.WeaponModel;
+using Project.Scripts.Weapons;
 using UnityEngine;
+using Zenject;
 
-namespace Project.Scripts.Weapons
+public class WeaponFactory : MonoBehaviour
 {
-    public class WeaponFactory : MonoBehaviour
+    private BowConfig _bowConfig;
+    private BulletFactoryPlayer _bulletFactory;
+    private StoneCannonConfig _stoneCannonConfig;
+    private BulletFactoryEnemies _bulletFactoryEnemy;
+
+    [Inject]
+    public void Construct(BowConfig bowConfig, BulletFactoryPlayer bulletFactory,
+                          StoneCannonConfig stoneCannonConfig, BulletFactoryEnemies bulletFactoryEnemy)
     {
-        [Header("Player")]
-        [SerializeField] private BowConfig _bowConfig;
-        [SerializeField] private BulletFactory _bulletFactory;
+        _bowConfig = bowConfig;
+        _bulletFactory = bulletFactory;
+        _stoneCannonConfig = stoneCannonConfig;
+        _bulletFactoryEnemy = bulletFactoryEnemy;
+    }
 
-        [Header("EnemyModel")]
-        [SerializeField] private StoneCannonConfig _stoneCannonConfig;
-        [SerializeField] private BulletFactory _bulletFactoryEnemy;
+    public Bow CreateWeapon(Transform spawnPoint)
+    {
+        return new Bow(_bowConfig, spawnPoint, _bulletFactory);
+    }
 
-        public Weapon<BowConfig> CreateWeapon(Transform spawnPoint)
-        {
-            return new Bow(_bowConfig, spawnPoint, _bulletFactory);
-        }
-
-        public Weapon<StoneCannonConfig> CreateEnemyWeapon(Transform[] spawnPoints)
-        {
-            return new StoneCannon(_stoneCannonConfig, spawnPoints, _bulletFactoryEnemy);
-        }
+    public StoneCannon CreateEnemyWeapon(Transform[] spawnPoints)
+    {
+        return new StoneCannon(_stoneCannonConfig, spawnPoints, _bulletFactoryEnemy);
     }
 }

@@ -768,8 +768,6 @@ GameObject:
   m_Component:
   - component: {fileID: 637920359}
   - component: {fileID: 637920358}
-  - component: {fileID: 637920360}
-  - component: {fileID: 637920361}
   m_Layer: 0
   m_Name: WeaponsFactory
   m_TagString: Untagged
@@ -789,10 +787,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2f4b1161a3c954dbf55ca99a2b614e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bowConfig: {fileID: 11400000, guid: c3c23055ea671bd49a63d09a4688a916, type: 2}
-  _bulletFactory: {fileID: 637920360}
-  _stoneCannonConfig: {fileID: 11400000, guid: 469a212d4d4088041b907faa3d603aed, type: 2}
-  _bulletFactoryEnemy: {fileID: 637920361}
 --- !u!4 &637920359
 Transform:
   m_ObjectHideFlags: 0
@@ -808,34 +802,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &637920360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637920356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b5cebe7c12ef094391d878d329465ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _initialPoolSize: 10
-  _weaponConfig: {fileID: 11400000, guid: c3c23055ea671bd49a63d09a4688a916, type: 2}
---- !u!114 &637920361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637920356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b5cebe7c12ef094391d878d329465ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _initialPoolSize: 10
-  _weaponConfig: {fileID: 11400000, guid: 469a212d4d4088041b907faa3d603aed, type: 2}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -3163,6 +3129,9 @@ MonoBehaviour:
   _spawnPointPlayer: {fileID: 1703926470}
   _joystick: {fileID: 2929252284845926972}
   _door: {fileID: 1627011676}
+  _weaponConfigPlayer: {fileID: 11400000, guid: c3c23055ea671bd49a63d09a4688a916, type: 2}
+  _bowConfig: {fileID: 11400000, guid: c3c23055ea671bd49a63d09a4688a916, type: 2}
+  _stoneCannonConfig: {fileID: 11400000, guid: 469a212d4d4088041b907faa3d603aed, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
