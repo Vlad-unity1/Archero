@@ -1,5 +1,4 @@
 ﻿using NextLevelLoader;
-using Project.Scripts.BulletModel;
 using Project.Scripts.Enemies;
 using Project.Scripts.PlayerModels;
 using Project.Scripts.Players;
@@ -9,7 +8,6 @@ using Zenject;
 public class GameFlow : IInitializable, ITickable
 {
     private List<EnemyModel> _enemies;
-    private readonly BulletFactoryPlayer _bulletFactory;
     private readonly EnemyFactory _enemyFactory;
     private readonly PlayerFactory _playerFactory;
     private readonly SpawnPointPlayerScene _spawnPointPlayer;
@@ -17,14 +15,13 @@ public class GameFlow : IInitializable, ITickable
     private readonly NextLevel _nextLevelController;
     private PlayerModel _player;
 
-    public GameFlow(EnemyFactory enemyFactory, PlayerFactory playerFactory, SpawnPointPlayerScene spawnPointPlayer, Joystick joystick, NextLevel nextLevelController, BulletFactoryPlayer bulletFactory)
+    public GameFlow(EnemyFactory enemyFactory, PlayerFactory playerFactory, SpawnPointPlayerScene spawnPointPlayer, Joystick joystick, NextLevel nextLevelController)
     {
         _enemyFactory = enemyFactory;
         _playerFactory = playerFactory;
         _spawnPointPlayer = spawnPointPlayer;
         _joystick = joystick;
         _nextLevelController = nextLevelController;
-        _bulletFactory = bulletFactory;
     }
 
     public void Initialize()
