@@ -1,4 +1,3 @@
-using Project.Scripts.Weapons;
 using System.Collections.Generic;
 using UnityEngine;
 

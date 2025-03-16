@@ -1,4 +1,4 @@
-﻿using Project.Scripts.Enemy;
+﻿using Project.Scripts.HealthInfo;
 using UnityEngine;
 using UnityEngine.UI;
 

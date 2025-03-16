@@ -1,4 +1,6 @@
 using NextLevelLoader;
+using Project.Scripts;
+using Project.Scripts.BulletFactoryEnemy;
 using Project.Scripts.BulletModel;
 using Project.Scripts.Enemies;
 using Project.Scripts.Players;

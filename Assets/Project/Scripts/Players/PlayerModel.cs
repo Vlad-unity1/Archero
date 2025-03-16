@@ -1,8 +1,8 @@
-using Project.Scripts.Enemy;
 using Project.Scripts.Players;
 using Project.Scripts.WeaponModel;
 using System;
 using System.Threading.Tasks;
+using Project.Scripts.HealthInfo;
 using Project.Scripts.Weapons;
 
 namespace Project.Scripts.PlayerModels

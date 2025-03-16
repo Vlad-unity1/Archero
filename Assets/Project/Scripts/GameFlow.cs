@@ -1,73 +1,76 @@
-﻿using NextLevelLoader;
+﻿using System.Collections.Generic;
+using NextLevelLoader;
 using Project.Scripts.Enemies;
 using Project.Scripts.PlayerModels;
 using Project.Scripts.Players;
-using System.Collections.Generic;
 using Zenject;
 
-public class GameFlow : IInitializable, ITickable
+namespace Project.Scripts
 {
-    private List<EnemyModel> _enemies;
-    private readonly EnemyFactory _enemyFactory;
-    private readonly PlayerFactory _playerFactory;
-    private readonly SpawnPointPlayerScene _spawnPointPlayer;
-    private readonly Joystick _joystick;
-    private readonly NextLevel _nextLevelController;
-    private PlayerModel _player;
-
-    public GameFlow(EnemyFactory enemyFactory, PlayerFactory playerFactory, SpawnPointPlayerScene spawnPointPlayer, Joystick joystick, NextLevel nextLevelController)
+    public class GameFlow : IInitializable, ITickable
     {
-        _enemyFactory = enemyFactory;
-        _playerFactory = playerFactory;
-        _spawnPointPlayer = spawnPointPlayer;
-        _joystick = joystick;
-        _nextLevelController = nextLevelController;
-    }
+        private List<EnemyModel> _enemies;
+        private readonly EnemyFactory _enemyFactory;
+        private readonly PlayerFactory _playerFactory;
+        private readonly SpawnPointPlayerScene _spawnPointPlayer;
+        private readonly Joystick _joystick;
+        private readonly NextLevel _nextLevelController;
+        private PlayerModel _player;
 
-    public void Initialize()
-    {
-        _nextLevelController.DisablePanels();
-        _player = _playerFactory.CreatePlayer(_spawnPointPlayer, 100, _joystick);
-        _enemyFactory.CreateEnemies();
-        _enemies = _enemyFactory.GetAllEnemies();
-
-        _player.PlayerHealth.OnEntityDeath += RemovePlayer;
-
-        foreach (var enemy in _enemies)
+        public GameFlow(EnemyFactory enemyFactory, PlayerFactory playerFactory, SpawnPointPlayerScene spawnPointPlayer, Joystick joystick, NextLevel nextLevelController)
         {
-            enemy.EnemyHealth.OnEntityDeath += () => RemoveEnemy(enemy);
+            _enemyFactory = enemyFactory;
+            _playerFactory = playerFactory;
+            _spawnPointPlayer = spawnPointPlayer;
+            _joystick = joystick;
+            _nextLevelController = nextLevelController;
         }
-    }
 
-    private void RemoveEnemy(EnemyModel enemy)
-    {
-        enemy.EnemyHealth.OnEntityDeath -= () => RemoveEnemy(enemy);
-        _enemies.Remove(enemy);
-
-        if (_enemies.Count == 0)
+        public void Initialize()
         {
-            OnAllEnemiesDefeated();
+            _nextLevelController.DisablePanels();
+            _player = _playerFactory.CreatePlayer(_spawnPointPlayer, 100, _joystick);
+            _enemyFactory.CreateEnemies();
+            _enemies = _enemyFactory.GetAllEnemies();
+
+            _player.PlayerHealth.OnEntityDeath += RemovePlayer;
+
+            foreach (var enemy in _enemies)
+            {
+                enemy.EnemyHealth.OnEntityDeath += () => RemoveEnemy(enemy);
+            }
         }
-    }
 
-    private void OnAllEnemiesDefeated()
-    {
-        _nextLevelController.EnableCollider();
-    }
+        private void RemoveEnemy(EnemyModel enemy)
+        {
+            enemy.EnemyHealth.OnEntityDeath -= () => RemoveEnemy(enemy);
+            _enemies.Remove(enemy);
 
-    private void RemovePlayer()
-    {
-        _player.PlayerHealth.OnEntityDeath -= RemovePlayer;
-        OnAllPlayersDefeated();
-    }
+            if (_enemies.Count == 0)
+            {
+                OnAllEnemiesDefeated();
+            }
+        }
 
-    private void OnAllPlayersDefeated()
-    {
-        _nextLevelController.EnablePanel();
-    }
+        private void OnAllEnemiesDefeated()
+        {
+            _nextLevelController.EnableCollider();
+        }
 
-    public void Tick()
-    {
-        _player?.Move();
+        private void RemovePlayer()
+        {
+            _player.PlayerHealth.OnEntityDeath -= RemovePlayer;
+            OnAllPlayersDefeated();
+        }
+
+        private void OnAllPlayersDefeated()
+        {
+            _nextLevelController.EnablePanel();
+        }
+
+        public void Tick()
+        {
+            _player?.Move();
+        }
     }
 }

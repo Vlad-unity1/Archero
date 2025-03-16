@@ -1,4 +1,4 @@
-﻿using Project.Scripts.Enemy;
+﻿using Project.Scripts.HealthInfo;
 using Project.Scripts.Player;
 using Project.Scripts.PlayerModels;
 using Project.Scripts.Weapons;

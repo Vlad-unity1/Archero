@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Project.Scripts.Enemy
+namespace Project.Scripts.HealthInfo
 {
     public class Health
     {

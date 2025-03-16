@@ -1,24 +1,26 @@
 using Project.Scripts.BulletModel;
 using Project.Scripts.WeaponModel;
-using Project.Scripts.Weapons;
 using UnityEngine;
 
-public class Bow : Weapon<BowConfig>
+namespace Project.Scripts.Weapons
 {
-    private readonly Transform _bulletPosition;
-    private readonly BulletFactoryPlayer _bulletFactory;
-
-    public Bow(BowConfig bowConfig, Transform bulletPosition, BulletFactoryPlayer bulletFactory)
-        : base(bowConfig)
+    public class Bow : Weapon<BowConfig>
     {
-        _bulletPosition = bulletPosition;
-        _bulletFactory = bulletFactory;
-    }
+        private readonly Transform _bulletPosition;
+        private readonly BulletFactoryPlayer _bulletFactory;
 
-    public override void InstantAttack()
-    {
-        var bullet = _bulletFactory.GetBullet(_bulletPosition.position, _bulletPosition.rotation);
-        bullet.SetDamage(Config.Damage);
-        bullet.Shoot(_bulletPosition.forward, Config.BulletSpeed);
+        public Bow(BowConfig bowConfig, Transform bulletPosition, BulletFactoryPlayer bulletFactory)
+            : base(bowConfig)
+        {
+            _bulletPosition = bulletPosition;
+            _bulletFactory = bulletFactory;
+        }
+
+        public override void InstantAttack()
+        {
+            var bullet = _bulletFactory.GetBullet(_bulletPosition.position, _bulletPosition.rotation);
+            bullet.SetDamage(Config.Damage);
+            bullet.Shoot(_bulletPosition.forward, Config.BulletSpeed);
+        }
     }
 }

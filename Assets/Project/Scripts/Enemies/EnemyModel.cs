@@ -1,5 +1,5 @@
 using System.Collections;
-using Project.Scripts.Enemy;
+using Project.Scripts.HealthInfo;
 using Project.Scripts.WeaponModel;
 using Project.Scripts.Weapons;
 using UnityEngine;

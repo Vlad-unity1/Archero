@@ -1,5 +1,4 @@
-﻿using Project.Scripts.Enemies;
-using Project.Scripts.Enemy;
+﻿using Project.Scripts.HealthInfo;
 using Project.Scripts.Player;
 using Project.Scripts.PlayerModels;
 using UnityEngine;
