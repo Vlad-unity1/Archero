@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
-using NextLevelLoader;
+﻿using NextLevelLoader;
 using Project.Scripts.Enemies;
 using Project.Scripts.PlayerModels;
 using Project.Scripts.Players;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Project.Scripts
@@ -15,22 +17,28 @@ namespace Project.Scripts
         private readonly SpawnPointPlayerScene _spawnPointPlayer;
         private readonly Joystick _joystick;
         private readonly NextLevel _nextLevelController;
+        private readonly EnemySpawnData[] _enemySpawnData;
+        private readonly Slider _experienceSlider;
+        private readonly SceneData _sceneData;
         private PlayerModel _player;
 
-        public GameFlow(EnemyFactory enemyFactory, PlayerFactory playerFactory, SpawnPointPlayerScene spawnPointPlayer, Joystick joystick, NextLevel nextLevelController)
+        public GameFlow(EnemyFactory enemyFactory, PlayerFactory playerFactory, SpawnPointPlayerScene spawnPointPlayer, Joystick joystick, NextLevel nextLevelController, EnemySpawnData[] enemySpawnDatas, Slider experienceSlider, SceneData sceneData)
         {
             _enemyFactory = enemyFactory;
             _playerFactory = playerFactory;
             _spawnPointPlayer = spawnPointPlayer;
             _joystick = joystick;
             _nextLevelController = nextLevelController;
+            _enemySpawnData = enemySpawnDatas;
+            _experienceSlider = experienceSlider;
+            _sceneData = sceneData;
         }
 
         public void Initialize()
         {
             _nextLevelController.DisablePanels();
             _player = _playerFactory.CreatePlayer(_spawnPointPlayer, 100, _joystick);
-            _enemyFactory.CreateEnemies();
+            _enemyFactory.CreateEnemies(_enemySpawnData);
             _enemies = _enemyFactory.GetAllEnemies();
 
             _player.PlayerHealth.OnEntityDeath += RemovePlayer;
@@ -45,6 +53,9 @@ namespace Project.Scripts
         {
             enemy.EnemyHealth.OnEntityDeath -= () => RemoveEnemy(enemy);
             _enemies.Remove(enemy);
+            _player.PlayerMovement.AddExperience(enemy.EXP);
+            UpdateExperienceSlider();
+            _nextLevelController.SaveExperience(_sceneData.CurrentExperience);
 
             if (_enemies.Count == 0)
             {
@@ -68,9 +79,19 @@ namespace Project.Scripts
             _nextLevelController.EnablePanel();
         }
 
+        private void UpdateExperienceSlider()
+        {
+            float currentExperience = _sceneData.CurrentExperience;
+
+            float maxExperience = _sceneData.MaxExperience;
+
+            _experienceSlider.value = Mathf.Clamp(currentExperience / maxExperience, 0f, 1f);
+        }
+
         public void Tick()
         {
             _player?.Move();
+            Debug.Log($"{_sceneData.CurrentExperience}");
         }
     }
 }

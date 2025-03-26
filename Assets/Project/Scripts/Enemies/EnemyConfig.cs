@@ -10,9 +10,10 @@ namespace Project.Scripts.Enemies
         public int MaxHealth;
         public EnemyView PrefabEnemy;
         public Weapon<StoneCannonConfig> StartingWeaponConfig;
+        public float EXP;
 
         private void OnValidate()
-        {
+        {   
             MaxHealth = Mathf.Max(MaxHealth, 1);
         }
     }

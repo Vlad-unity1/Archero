@@ -1,4 +1,6 @@
 using Project.Scripts.Enemies;
+using Project.Scripts.HealthInfo;
+using Project.Scripts.WeaponModel;
 using Project.Scripts.Weapons;
 using UnityEngine;
 
@@ -8,8 +10,8 @@ namespace Project.Scripts.Enemy
     {
         private readonly MonoBehaviour _coroutineRunner;
 
-        public StoneEnemy(EnemyStoneConfig config, WeaponFactory coroutineRunner)
-            : base(config)
+        public StoneEnemy(EnemyStoneConfig config, WeaponFactory coroutineRunner, Weapon<StoneCannonConfig> weapon, Health health)
+            : base(config, weapon, health, config.EXP)
         {
             _coroutineRunner = coroutineRunner;
 

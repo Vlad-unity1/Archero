@@ -8,27 +8,20 @@ namespace Project.Scripts.Enemies
 {
     public class EnemyModel
     {
+        public float EXP { get; private set; }
         private Weapon<StoneCannonConfig> CurrentWeapon { get; set; }
         public Health EnemyHealth { get; private set; }
 
-        public EnemyModel(EnemyConfig config)
+        public EnemyModel(EnemyConfig config, Weapon<StoneCannonConfig> weapon, Health health, float eXP)
         {
-            CurrentWeapon = config.StartingWeaponConfig;
+            CurrentWeapon = weapon;
+            EnemyHealth = health;
+            EXP = eXP;
         }
 
         private void Attack()
         {
             CurrentWeapon.InstantAttack();
-        }
-
-        public void SetEnemyWeapon(Weapon<StoneCannonConfig> weapon)
-        {
-            CurrentWeapon = weapon;
-        }
-
-        public void SetEnemyHealth(Health health)
-        {
-            EnemyHealth = health;
         }
         
         public IEnumerator AutoAttack()

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace NextLevelLoader
@@ -35,6 +35,12 @@ namespace NextLevelLoader
         {
             _panel.SetActive(true);
             Time.timeScale = 0;
+        }
+
+        public void SaveExperience(float currentExperience)
+        {
+            PlayerPrefs.SetFloat("EXP", currentExperience);
+            PlayerPrefs.Save();
         }
     }
 }

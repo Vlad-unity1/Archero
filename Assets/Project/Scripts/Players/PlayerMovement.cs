@@ -1,4 +1,5 @@
-﻿using Project.Scripts.HealthInfo;
+﻿using Project.Scripts.Enemies;
+using Project.Scripts.HealthInfo;
 using Project.Scripts.Player;
 using Project.Scripts.PlayerModels;
 using UnityEngine;
@@ -20,12 +21,14 @@ namespace Project.Scripts.Players
         private PlayerModel _player;
         private Transform _nearestEnemy;
         private Health _health;
+        private SceneData _sceneData;
 
-        public void Initialize(PlayerModel player, PlayerInputHandler inputHandler, Health health)
+        public void Initialize(PlayerModel player, PlayerInputHandler inputHandler, Health health, SceneData sceneData)
         {
             _player = player;
             _inputHandler = inputHandler;
             _health = health;
+            _sceneData = sceneData;
             _health.OnHealthChanged += UpdateHealthBar;
             _healthBar.maxValue = 1f;
             _healthBar.value = _health.CurrentHealth / _health.MaxHealth;
@@ -51,8 +54,8 @@ namespace Project.Scripts.Players
                 _nearestEnemy = FindNearestEnemy();
                 if (_nearestEnemy != null)
                 {
-                    _player.StartAttack();
                     RotateToEnemy();
+                    _player.StartAttack();
                 }
             }
 
@@ -110,6 +113,16 @@ namespace Project.Scripts.Players
         private void OnDestroy()
         {
             _health.OnHealthChanged -= UpdateHealthBar;
+        }
+
+        public void AddExperience(float amount)
+        {
+            _sceneData.CurrentExperience += amount;
+
+            if (_sceneData.CurrentExperience > _sceneData.MaxExperience)
+            {
+                _sceneData.CurrentExperience = _sceneData.MaxExperience;
+            }
         }
     }
 }

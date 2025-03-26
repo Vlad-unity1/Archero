@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 100
   PrefabEnemy: {fileID: 6383768375562488539, guid: 8990c1aa9bcefed418796f18c8d59c8e, type: 3}
+  EXP: 1

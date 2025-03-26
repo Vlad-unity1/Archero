@@ -1,4 +1,5 @@
-﻿using Project.Scripts.HealthInfo;
+﻿using Project.Scripts.Enemies;
+using Project.Scripts.HealthInfo;
 using Project.Scripts.Player;
 using Project.Scripts.PlayerModels;
 using Project.Scripts.Weapons;
@@ -6,21 +7,28 @@ using UnityEngine;
 
 namespace Project.Scripts.Players
 {
-    public class PlayerFactory : MonoBehaviour
+    public class PlayerFactory
     {
-        [SerializeField] private WeaponFactory _weaponFactory;
-        [SerializeField] private PlayerMovement _playerPrefab;
+        private readonly WeaponFactory _weaponFactory;
+        private readonly SceneData _sceneData;
+
+        public PlayerFactory(WeaponFactory weaponFactory, SceneData sceneData)
+        {
+            _weaponFactory = weaponFactory;
+            _sceneData = sceneData;
+        }
 
         public PlayerModel CreatePlayer(SpawnPointPlayerScene spawnPosition, int initialHealth, Joystick joystick)
         {
-            PlayerMovement playerMovement = Object.Instantiate(_playerPrefab, spawnPosition.transform.position, Quaternion.identity);
+            PlayerMovement playerMovement = Object.Instantiate(_sceneData.PrefabPlayer, spawnPosition.transform.position, Quaternion.identity);
             var playerInput = new PlayerInputHandler(joystick);
 
             var weapon = _weaponFactory.CreateWeapon(playerMovement.weaponTransformPrefab);
             var health = new Health(initialHealth, playerMovement.gameObject);
-            var player = new PlayerModel(health, 10, weapon, playerMovement, playerInput.Joystick);
+            float savedExp = PlayerPrefs.GetFloat("EXP", _sceneData.CurrentExperience);
+            var player = new PlayerModel(health, 10, weapon, playerMovement, playerInput.Joystick, savedExp);
 
-            playerMovement.Initialize(player, playerInput, health);
+            playerMovement.Initialize(player, playerInput, health, _sceneData);
             player.SetWeapon(weapon);
             
             return player;

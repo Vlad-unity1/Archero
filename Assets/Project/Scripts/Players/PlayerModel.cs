@@ -20,21 +20,23 @@ namespace Project.Scripts.PlayerModels
         public Health PlayerHealth { get; private set; }
         private Weapon<BowConfig> CurrentWeapon { get; set; }
 
-        private readonly PlayerMovement _playerMovement;
+        public PlayerMovement PlayerMovement { get; private set; }
         private readonly Joystick _joystick;
+        public float Experience { get; private set; }
 
-        public PlayerModel(Health playerHealth, int speed, Weapon<BowConfig> currentWeapon, PlayerMovement playerMovement, Joystick joystick)
+        public PlayerModel(Health playerHealth, int speed, Weapon<BowConfig> currentWeapon, PlayerMovement playerMovement, Joystick joystick, float experience)
         {
             PlayerHealth = playerHealth;
             Speed = speed;
             CurrentWeapon = currentWeapon;
-            _playerMovement = playerMovement;
+            PlayerMovement = playerMovement;
             _joystick = joystick;
+            Experience = experience;
         }
 
         public void Move()
         {
-            _playerMovement.Move();
+            PlayerMovement.Move();
         }
 
         public void StopAttacking()
