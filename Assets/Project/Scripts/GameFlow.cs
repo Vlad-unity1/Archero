@@ -47,6 +47,10 @@ namespace Project.Scripts
             {
                 enemy.EnemyHealth.OnEntityDeath += () => RemoveEnemy(enemy);
             }
+
+            float savedExperience = PlayerPrefs.GetFloat("EXP", 0);
+            _player.CurrentExperience = savedExperience;
+            UpdateExperienceSlider();
         }
 
         private void RemoveEnemy(EnemyModel enemy)
@@ -55,7 +59,7 @@ namespace Project.Scripts
             _enemies.Remove(enemy);
             _player.PlayerMovement.AddExperience(enemy.EXP);
             UpdateExperienceSlider();
-            _nextLevelController.SaveExperience(_sceneData.CurrentExperience);
+            _nextLevelController.SaveExperience(_player.CurrentExperience);
 
             if (_enemies.Count == 0)
             {
@@ -71,6 +75,7 @@ namespace Project.Scripts
         private void RemovePlayer()
         {
             _player.PlayerHealth.OnEntityDeath -= RemovePlayer;
+            PlayerPrefs.DeleteKey("EXP");
             OnAllPlayersDefeated();
         }
 
@@ -81,7 +86,7 @@ namespace Project.Scripts
 
         private void UpdateExperienceSlider()
         {
-            float currentExperience = _sceneData.CurrentExperience;
+            float currentExperience = _player.CurrentExperience;
 
             float maxExperience = _sceneData.MaxExperience;
 
@@ -91,7 +96,7 @@ namespace Project.Scripts
         public void Tick()
         {
             _player?.Move();
-            Debug.Log($"{_sceneData.CurrentExperience}");
+            Debug.Log($"{_player.CurrentExperience}");
         }
     }
 }

@@ -25,10 +25,10 @@ namespace Project.Scripts.Players
 
             var weapon = _weaponFactory.CreateWeapon(playerMovement.weaponTransformPrefab);
             var health = new Health(initialHealth, playerMovement.gameObject);
-            float savedExp = PlayerPrefs.GetFloat("EXP", _sceneData.CurrentExperience);
+            float savedExp = PlayerPrefs.GetFloat("EXP", 0);
             var player = new PlayerModel(health, 10, weapon, playerMovement, playerInput.Joystick, savedExp);
 
-            playerMovement.Initialize(player, playerInput, health, _sceneData);
+            playerMovement.Initialize(player, playerInput, health, _sceneData, savedExp);
             player.SetWeapon(weapon);
             
             return player;

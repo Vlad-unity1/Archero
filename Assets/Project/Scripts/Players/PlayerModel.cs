@@ -14,6 +14,7 @@ namespace Project.Scripts.PlayerModels
         public event Action OnAttackStart;
         public event Action OnAttackStop;
 
+        public float CurrentExperience { get; set; }
         public int Speed = 5; // test 
         private bool isAttacking;
 
@@ -22,7 +23,6 @@ namespace Project.Scripts.PlayerModels
 
         public PlayerMovement PlayerMovement { get; private set; }
         private readonly Joystick _joystick;
-        public float Experience { get; private set; }
 
         public PlayerModel(Health playerHealth, int speed, Weapon<BowConfig> currentWeapon, PlayerMovement playerMovement, Joystick joystick, float experience)
         {
@@ -31,7 +31,7 @@ namespace Project.Scripts.PlayerModels
             CurrentWeapon = currentWeapon;
             PlayerMovement = playerMovement;
             _joystick = joystick;
-            Experience = experience;
+            CurrentExperience = experience;
         }
 
         public void Move()
@@ -65,6 +65,5 @@ namespace Project.Scripts.PlayerModels
         {
             CurrentWeapon = weapon;
         }
-
     }
 }

@@ -23,12 +23,13 @@ namespace Project.Scripts.Players
         private Health _health;
         private SceneData _sceneData;
 
-        public void Initialize(PlayerModel player, PlayerInputHandler inputHandler, Health health, SceneData sceneData)
+        public void Initialize(PlayerModel player, PlayerInputHandler inputHandler, Health health, SceneData sceneData, float Exp)
         {
             _player = player;
             _inputHandler = inputHandler;
             _health = health;
             _sceneData = sceneData;
+            _player.CurrentExperience = Exp;
             _health.OnHealthChanged += UpdateHealthBar;
             _healthBar.maxValue = 1f;
             _healthBar.value = _health.CurrentHealth / _health.MaxHealth;
@@ -117,11 +118,11 @@ namespace Project.Scripts.Players
 
         public void AddExperience(float amount)
         {
-            _sceneData.CurrentExperience += amount;
+            _player.CurrentExperience += amount;
 
-            if (_sceneData.CurrentExperience > _sceneData.MaxExperience)
+            if (_player.CurrentExperience > _sceneData.MaxExperience)
             {
-                _sceneData.CurrentExperience = _sceneData.MaxExperience;
+                _player.CurrentExperience = _sceneData.MaxExperience;
             }
         }
     }

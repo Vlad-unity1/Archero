@@ -11,6 +11,5 @@ namespace Project.Scripts.Enemies
         public PlayerMovement PrefabPlayer;
 
         public float MaxExperience = 10;
-        public float CurrentExperience;
     }
 }

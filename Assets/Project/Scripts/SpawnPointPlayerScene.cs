@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class SpawnPointPlayerScene : MonoBehaviour
+namespace Project.Scripts
 {
-    [SerializeField] private Transform _spawnTransformPlayer;
+    public class SpawnPointPlayerScene : MonoBehaviour
+    {
+        [SerializeField] private Transform _spawnTransformPlayer;
+    }
 }
